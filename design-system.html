@@ -1,0 +1,1140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pulsereview · design system</title>
+<meta name="description" content="The pulsereview design system — colors, type, spacing, components, and brand foundations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   pulsereview · design tokens
+   ============================================================ */
+:root {
+  /* pulse blue */
+  --pulse-50:#eef3ff; --pulse-100:#dbe5ff; --pulse-200:#bfd0ff; --pulse-300:#94b0ff;
+  --pulse-400:#6286ff; --pulse-500:#3a5fff; --pulse-600:#2640ee; --pulse-700:#1f30c8;
+  --pulse-800:#1d2ba1; --pulse-900:#1d2a7f; --pulse-950:#131a4a;
+  /* coral */
+  --coral-50:#fff1ee; --coral-100:#ffe0d8; --coral-200:#ffc1b1; --coral-300:#ff9a80;
+  --coral-400:#ff7a5b; --coral-500:#ff5a3a; --coral-600:#ec3d1e; --coral-700:#c42d12;
+  --coral-800:#9a2611; --coral-900:#7d2412;
+  /* mint */
+  --mint-50:#ecfdf5; --mint-100:#d1fae5; --mint-200:#a7f3d0; --mint-300:#6ee7b7;
+  --mint-400:#34d399; --mint-500:#10b981; --mint-600:#059669; --mint-700:#047857;
+  --mint-800:#065f46; --mint-900:#064e3b;
+  /* amber */
+  --amber-50:#fffbeb; --amber-100:#fef3c7; --amber-300:#fcd34d; --amber-400:#fbbf24;
+  --amber-500:#f59e0b; --amber-600:#d97706; --amber-700:#b45309;
+  /* rose */
+  --rose-50:#fff1f2; --rose-100:#ffe4e6; --rose-400:#fb7185; --rose-500:#f43f5e;
+  --rose-600:#e11d48; --rose-700:#be123c;
+  /* slate */
+  --slate-0:#ffffff; --slate-25:#fafbfd; --slate-50:#f4f6fb; --slate-100:#ecf0f7;
+  --slate-200:#dde3ee; --slate-300:#c3cbdb; --slate-400:#98a2b8; --slate-500:#6a7388;
+  --slate-600:#4b5468; --slate-700:#353c4d; --slate-800:#232838; --slate-900:#161a26;
+  --slate-950:#0c0f18;
+
+  /* semantic */
+  --bg-app:var(--slate-25); --bg-surface:var(--slate-0); --bg-sunken:var(--slate-50);
+  --bg-overlay:rgba(22,26,38,.55);
+  --bg-tint-blue:var(--pulse-50); --bg-tint-coral:var(--coral-50);
+  --bg-tint-mint:var(--mint-50); --bg-tint-amber:var(--amber-50); --bg-tint-rose:var(--rose-50);
+  --fg-1:var(--slate-900); --fg-2:var(--slate-700); --fg-3:var(--slate-500);
+  --fg-4:var(--slate-400); --fg-inverse:var(--slate-0);
+  --brand:var(--pulse-500); --brand-hover:var(--pulse-600); --brand-pressed:var(--pulse-700);
+  --brand-fg:var(--slate-0); --brand-tint:var(--pulse-50); --brand-tint-strong:var(--pulse-100);
+  --accent:var(--coral-400); --accent-hover:var(--coral-500); --accent-fg:var(--slate-0);
+  --success:var(--mint-500); --success-fg:var(--mint-700); --success-tint:var(--mint-50);
+  --warning:var(--amber-500); --warning-fg:var(--amber-700); --warning-tint:var(--amber-50);
+  --danger:var(--rose-500); --danger-fg:var(--rose-700); --danger-tint:var(--rose-50);
+  --info:var(--pulse-500); --info-tint:var(--pulse-50);
+  --border-subtle:var(--slate-100); --border:var(--slate-200); --border-strong:var(--slate-300);
+  --border-focus:var(--pulse-500);
+
+  /* type */
+  --font-sans:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-display:'Bricolage Grotesque','Geist',ui-sans-serif,system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --text-2xs:11px; --text-xs:12px; --text-sm:13px; --text-md:15px; --text-lg:17px;
+  --text-xl:20px; --text-2xl:24px; --text-3xl:30px; --text-4xl:38px; --text-5xl:48px;
+  --text-6xl:64px; --text-7xl:84px;
+  --leading-tight:1.15; --leading-snug:1.3; --leading-normal:1.5; --leading-loose:1.7;
+  --tracking-tight:-0.02em; --tracking-snug:-0.01em; --tracking-normal:0;
+  --tracking-wide:0.04em; --tracking-caps:0.08em;
+
+  /* spacing */
+  --space-0:0; --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:20px; --space-6:24px; --space-7:32px; --space-8:40px; --space-9:48px;
+  --space-10:64px; --space-11:80px; --space-12:96px; --space-13:128px;
+
+  /* radii */
+  --radius-xs:4px; --radius-sm:6px; --radius-md:10px; --radius-lg:14px;
+  --radius-xl:20px; --radius-2xl:28px; --radius-full:999px;
+
+  /* shadows */
+  --shadow-xs:0 1px 2px rgba(22,38,90,.05);
+  --shadow-sm:0 1px 2px rgba(22,38,90,.06),0 1px 3px rgba(22,38,90,.05);
+  --shadow-md:0 4px 6px -2px rgba(22,38,90,.06),0 8px 16px -4px rgba(22,38,90,.08);
+  --shadow-lg:0 12px 16px -4px rgba(22,38,90,.08),0 24px 48px -12px rgba(22,38,90,.18);
+  --shadow-xl:0 24px 48px -12px rgba(22,38,90,.22),0 48px 96px -24px rgba(22,38,90,.18);
+  --ring-focus:0 0 0 3px rgba(58,95,255,.28);
+  --shadow-pulse:0 0 0 4px rgba(58,95,255,.08),0 0 0 10px rgba(58,95,255,.04);
+
+  /* motion */
+  --ease-out:cubic-bezier(0.22,1,0.36,1);
+  --ease-in-out:cubic-bezier(0.65,0,0.35,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+  --duration-fast:120ms; --duration-base:180ms; --duration-slow:280ms; --duration-slower:480ms;
+}
+
+/* ============================================================
+   base
+   ============================================================ */
+*,*::before,*::after { box-sizing:border-box; }
+html { font-family:var(--font-sans); color:var(--fg-1); -webkit-font-smoothing:antialiased; scroll-behavior:smooth; }
+body { margin:0; background:var(--bg-app); font-size:var(--text-md); line-height:var(--leading-normal); }
+a { color:var(--brand); text-decoration:none; transition:color var(--duration-fast) var(--ease-out); }
+a:hover { color:var(--brand-hover); text-decoration:underline; text-underline-offset:3px; }
+::selection { background:var(--pulse-200); color:var(--fg-1); }
+h1,h2,h3,h4,h5,h6,p { margin:0; }
+
+/* ============================================================
+   layout — sidebar + content
+   ============================================================ */
+.app { display:grid; grid-template-columns:260px 1fr; min-height:100vh; max-width:1440px; margin:0 auto; }
+.sidebar {
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+  background:var(--bg-surface); border-right:1px solid var(--border);
+  padding:var(--space-7) var(--space-6); display:flex; flex-direction:column; gap:var(--space-6);
+}
+.sidebar-brand { display:flex; align-items:center; gap:var(--space-3); }
+.sidebar-brand .mark { width:36px; height:36px; flex:none; }
+.sidebar-brand .wordmark { font-family:var(--font-display); font-weight:700; font-size:var(--text-xl); letter-spacing:-0.01em; color:var(--fg-1); }
+.sidebar-brand .wordmark .review { color:var(--brand); }
+.sidebar-eyebrow { font-size:var(--text-2xs); font-weight:600; text-transform:uppercase; letter-spacing:var(--tracking-caps); color:var(--fg-3); padding:0 var(--space-3); }
+.nav { display:flex; flex-direction:column; gap:2px; }
+.nav a {
+  display:flex; align-items:center; gap:var(--space-3); padding:var(--space-2) var(--space-3);
+  border-radius:var(--radius-sm); color:var(--fg-2); font-size:var(--text-sm); font-weight:500;
+  transition:background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+.nav a:hover { background:var(--bg-sunken); color:var(--fg-1); text-decoration:none; }
+.nav a.active { background:var(--brand-tint); color:var(--brand); }
+.nav svg { width:16px; height:16px; flex:none; }
+.sidebar-foot {
+  margin-top:auto; padding:var(--space-4);
+  background:var(--bg-sunken); border-radius:var(--radius-md); border:1px solid var(--border-subtle);
+  display:flex; align-items:center; gap:var(--space-3);
+}
+.pulse-dot { width:10px; height:10px; border-radius:99px; background:var(--success); box-shadow:0 0 0 4px var(--mint-100); flex:none; animation:pulse 2s var(--ease-out) infinite; }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.55; } }
+.sidebar-foot-text { display:flex; flex-direction:column; }
+.sidebar-foot-text strong { font-size:var(--text-sm); font-weight:600; color:var(--fg-1); }
+.sidebar-foot-text span { font-size:var(--text-xs); color:var(--fg-3); font-family:var(--font-mono); }
+
+.content { padding:var(--space-9) var(--space-9) var(--space-12); max-width:1100px; }
+
+/* hero */
+.hero { margin-bottom:var(--space-10); }
+.hero .eyebrow {
+  display:inline-flex; align-items:center; gap:var(--space-2);
+  font-family:var(--font-mono); font-size:var(--text-xs); font-weight:600;
+  text-transform:uppercase; letter-spacing:var(--tracking-caps); color:var(--brand);
+  padding:var(--space-1) var(--space-3); background:var(--brand-tint); border-radius:var(--radius-full);
+}
+.hero h1 {
+  font-family:var(--font-display); font-weight:700; font-size:var(--text-6xl);
+  letter-spacing:var(--tracking-tight); line-height:1.05; color:var(--fg-1);
+  margin:var(--space-5) 0 var(--space-4); text-wrap:balance; max-width:18ch;
+}
+.hero h1 .accent { color:var(--brand); }
+.hero p.lede { font-size:var(--text-lg); line-height:var(--leading-normal); color:var(--fg-2); max-width:60ch; }
+.hero-meta { margin-top:var(--space-6); display:flex; flex-wrap:wrap; gap:var(--space-4); font-size:var(--text-sm); color:var(--fg-3); }
+.hero-meta span { display:inline-flex; align-items:center; gap:var(--space-2); }
+.hero-meta svg { width:14px; height:14px; color:var(--brand); }
+
+/* section primitives */
+section.panel { margin-bottom:var(--space-10); scroll-margin-top:var(--space-6); }
+.section-head { margin-bottom:var(--space-6); display:flex; align-items:baseline; justify-content:space-between; gap:var(--space-6); flex-wrap:wrap; }
+.section-head h2 {
+  font-family:var(--font-sans); font-weight:600; font-size:var(--text-3xl);
+  letter-spacing:var(--tracking-snug); color:var(--fg-1);
+}
+.section-head .kicker {
+  font-family:var(--font-mono); font-size:var(--text-xs); font-weight:600;
+  color:var(--fg-3); text-transform:uppercase; letter-spacing:var(--tracking-caps);
+}
+.section-head p { font-size:var(--text-md); color:var(--fg-2); max-width:60ch; margin-top:var(--space-2); }
+
+.card {
+  background:var(--bg-surface); border:1px solid var(--border); border-radius:var(--radius-lg);
+  padding:var(--space-6); box-shadow:var(--shadow-sm);
+}
+.card + .card { margin-top:var(--space-4); }
+.card-title { font-size:var(--text-sm); font-weight:600; color:var(--fg-1); }
+.card-sub   { font-size:var(--text-xs); color:var(--fg-3); margin-top:2px; }
+.card-head { display:flex; align-items:baseline; justify-content:space-between; gap:var(--space-4); margin-bottom:var(--space-5); }
+
+/* helpers */
+.row { display:flex; gap:var(--space-3); flex-wrap:wrap; align-items:center; }
+.col { display:flex; flex-direction:column; gap:var(--space-2); }
+.grid { display:grid; gap:var(--space-3); }
+.mono { font-family:var(--font-mono); }
+.muted { color:var(--fg-3); }
+.note { font-size:var(--text-sm); color:var(--fg-3); margin-top:var(--space-4); }
+
+/* swatches */
+.swatch {
+  display:flex; flex-direction:column; justify-content:space-between;
+  border-radius:var(--radius-md); padding:var(--space-3); min-height:72px;
+  font-size:var(--text-2xs); font-family:var(--font-mono);
+  border:1px solid var(--border-subtle);
+}
+.swatch .name { font-weight:600; font-size:var(--text-xs); }
+.swatch .hex { opacity:.75; }
+.swatch.dark { color:#fff; }
+.swatch.light { color:var(--fg-1); }
+.ramp { display:grid; gap:6px; }
+
+/* logo */
+.logo-grid { display:grid; grid-template-columns:auto 1fr; gap:var(--space-6); align-items:center; }
+.logo-mark-large { width:88px; height:88px; }
+.logo-inverse { padding:var(--space-5) var(--space-6); background:var(--pulse-600); border-radius:var(--radius-md); display:flex; align-items:center; }
+.logo-rules { font-size:var(--text-sm); color:var(--fg-2); line-height:var(--leading-normal); }
+.logo-rules ul { margin:var(--space-2) 0 0; padding:0; list-style:none; }
+.logo-rules li { padding-left:var(--space-5); position:relative; margin:var(--space-1) 0; }
+.logo-rules li::before { content:"·"; position:absolute; left:var(--space-2); color:var(--brand); font-weight:700; font-size:var(--text-lg); top:-2px; }
+
+/* spacing visual */
+.space-row { display:flex; gap:var(--space-3); align-items:flex-end; padding:var(--space-3) 0; }
+.space-row .unit { display:flex; flex-direction:column; align-items:center; gap:var(--space-2); }
+.space-row .unit .bar { background:var(--brand); border-radius:2px; }
+.space-row .unit .lbl { font-family:var(--font-mono); font-size:var(--text-2xs); color:var(--fg-3); }
+
+/* radii */
+.radii-row { display:flex; gap:var(--space-5); align-items:flex-end; flex-wrap:wrap; }
+.radii-row .demo { width:72px; height:72px; background:var(--pulse-100); border:1px solid var(--pulse-300); }
+.radii-row .unit { display:flex; flex-direction:column; align-items:center; gap:var(--space-2); }
+.radii-row .lbl { font-family:var(--font-mono); font-size:var(--text-xs); color:var(--fg-3); }
+
+/* shadows */
+.shadows-row { display:flex; gap:var(--space-5); flex-wrap:wrap; padding:var(--space-5) 0; }
+.shadows-row .demo { width:96px; height:72px; background:#fff; border-radius:var(--radius-md); }
+.shadows-row .unit { display:flex; flex-direction:column; align-items:center; gap:var(--space-3); }
+
+/* buttons */
+.btn { display:inline-flex; align-items:center; gap:var(--space-2); padding:10px 16px; border-radius:var(--radius-md);
+  font-family:var(--font-sans); font-weight:500; font-size:14px; border:1px solid transparent; cursor:pointer;
+  transition:background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out); }
+.btn:focus-visible { outline:none; box-shadow:var(--ring-focus); }
+.btn-primary { background:var(--brand); color:var(--brand-fg); }
+.btn-primary:hover { background:var(--brand-hover); }
+.btn-primary:active { background:var(--brand-pressed); }
+.btn-secondary { background:var(--bg-surface); border-color:var(--border); color:var(--fg-1); }
+.btn-secondary:hover { background:var(--bg-sunken); border-color:var(--border-strong); }
+.btn-ghost { background:transparent; color:var(--fg-2); }
+.btn-ghost:hover { background:var(--bg-sunken); color:var(--fg-1); }
+.btn-danger { background:var(--danger); color:#fff; }
+.btn-danger:hover { background:var(--rose-600); }
+.btn-sm { padding:6px 12px; font-size:var(--text-sm); }
+.btn-lg { padding:14px 22px; font-size:var(--text-md); }
+.btn svg { width:16px; height:16px; }
+
+/* inputs */
+.field { display:flex; flex-direction:column; gap:var(--space-1); }
+.field > label { font-size:var(--text-sm); font-weight:500; color:var(--fg-2); }
+.field input, .field textarea, .field select {
+  font-family:var(--font-sans); font-size:var(--text-md); padding:10px 12px;
+  border:1px solid var(--border); border-radius:var(--radius-md); background:#fff; color:var(--fg-1);
+  transition:border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
+}
+.field textarea { resize:vertical; font-family:var(--font-sans); }
+.field input:focus, .field textarea:focus, .field select:focus {
+  outline:none; border-color:var(--brand); box-shadow:var(--ring-focus);
+}
+.field .hint { font-size:var(--text-xs); color:var(--fg-3); }
+.search { position:relative; }
+.search input { padding-left:38px; width:100%; }
+.search svg { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--fg-3); width:18px; height:18px; }
+
+/* badges + chips */
+.badge { display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:var(--radius-full); font-size:var(--text-xs); font-weight:500; font-family:var(--font-sans); }
+.b-mint  { background:var(--mint-50);  color:var(--mint-700);  border:1px solid var(--mint-200); }
+.b-amber { background:var(--amber-50); color:var(--amber-700); border:1px solid #fde68a; }
+.b-rose  { background:var(--rose-50);  color:var(--rose-700);  border:1px solid #fecdd3; }
+.b-blue  { background:var(--pulse-50); color:var(--pulse-700); border:1px solid var(--pulse-200); }
+.b-slate { background:var(--slate-100); color:var(--slate-700); border:1px solid var(--slate-200); }
+.dot { width:6px; height:6px; border-radius:99px; background:currentColor; }
+.chip { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:var(--radius-sm); background:#fff; border:1px solid var(--border); font-size:var(--text-sm); color:var(--fg-2); cursor:pointer; font-family:var(--font-sans); transition:background var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out); }
+.chip:hover { background:var(--bg-sunken); }
+.chip.on { background:var(--pulse-50); color:var(--pulse-700); border-color:var(--pulse-200); }
+
+/* example cards */
+.example-card { background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); padding:var(--space-4); box-shadow:var(--shadow-sm); }
+.stat-num { font-family:var(--font-display); font-size:var(--text-4xl); font-weight:700; letter-spacing:var(--tracking-tight); color:var(--fg-1); line-height:1; }
+.stat-label { font-size:var(--text-xs); color:var(--fg-3); text-transform:uppercase; letter-spacing:var(--tracking-caps); font-weight:600; }
+.trend { color:var(--mint-600); font-size:var(--text-xs); font-weight:600; }
+.avatar { width:36px; height:36px; border-radius:99px; background:linear-gradient(135deg,var(--pulse-300),var(--coral-300)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:var(--text-sm); }
+.stars-inline { color:var(--amber-400); letter-spacing:1px; font-size:var(--text-md); }
+
+/* stars rating */
+.rating { display:inline-flex; gap:2px; }
+.rating svg { width:22px; height:22px; }
+.rating .filled { fill:var(--amber-400); stroke:var(--amber-400); }
+.rating .empty  { fill:none; stroke:var(--slate-300); }
+
+/* feature blocks (motif + illustration) */
+.motif-card { background:linear-gradient(135deg,var(--pulse-50),#fff); display:flex; flex-direction:column; align-items:center; gap:var(--space-4); padding:var(--space-7) var(--space-6); }
+.motif-card svg.motif { max-width:520px; width:100%; height:auto; }
+.illustration-card { display:flex; flex-direction:column; align-items:center; gap:var(--space-4); padding:var(--space-6); }
+
+/* iconography */
+.icon-grid { display:grid; grid-template-columns:repeat(8,1fr); gap:var(--space-4); color:var(--fg-2); align-items:center; justify-items:center; }
+.icon-grid svg { width:24px; height:24px; }
+
+/* voice table */
+.voice-table { width:100%; border-collapse:collapse; font-size:var(--text-sm); }
+.voice-table th, .voice-table td { padding:var(--space-3) var(--space-4); border-bottom:1px solid var(--border-subtle); vertical-align:top; text-align:left; }
+.voice-table th { font-size:var(--text-xs); font-weight:600; color:var(--fg-3); text-transform:uppercase; letter-spacing:var(--tracking-caps); background:var(--bg-sunken); }
+.voice-table tr:last-child td { border-bottom:none; }
+.voice-table .ok { color:var(--mint-700); }
+.voice-table .no { color:var(--rose-700); }
+.voice-table .label-col { font-weight:600; color:var(--fg-1); white-space:nowrap; }
+
+.callout {
+  background:var(--bg-tint-blue); border:1px solid var(--pulse-200); border-radius:var(--radius-md);
+  padding:var(--space-4) var(--space-5); display:flex; gap:var(--space-3); align-items:flex-start;
+  color:var(--pulse-900); font-size:var(--text-sm);
+}
+.callout svg { width:18px; height:18px; flex:none; margin-top:2px; color:var(--brand); }
+.callout strong { font-weight:600; color:var(--pulse-900); }
+
+/* type specimens */
+.specimen { padding:var(--space-5); border-radius:var(--radius-md); background:var(--bg-sunken); border:1px solid var(--border-subtle); }
+.specimen-row { display:flex; align-items:baseline; gap:var(--space-5); padding:var(--space-3) 0; border-bottom:1px dashed var(--border-subtle); }
+.specimen-row:last-child { border-bottom:none; }
+.specimen-row .meta { width:120px; flex:none; font-family:var(--font-mono); font-size:var(--text-xs); color:var(--fg-3); }
+.specimen-row .sample { flex:1; min-width:0; }
+
+/* responsive */
+@media (max-width: 960px) {
+  .app { grid-template-columns:1fr; }
+  .sidebar { position:relative; height:auto; border-right:none; border-bottom:1px solid var(--border); }
+  .content { padding:var(--space-7) var(--space-5); }
+  .hero h1 { font-size:var(--text-5xl); }
+  .logo-grid { grid-template-columns:1fr; }
+  .icon-grid { grid-template-columns:repeat(5,1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============================================================
+       sidebar
+       ============================================================ -->
+  <aside class="sidebar">
+    <a class="sidebar-brand" href="#top">
+      <svg class="mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="pulsereview mark">
+        <defs>
+          <linearGradient id="markGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#3a5fff"/>
+            <stop offset="100%" stop-color="#2640ee"/>
+          </linearGradient>
+        </defs>
+        <rect width="64" height="64" rx="16" fill="url(#markGrad)"/>
+        <path d="M8 32 H20 L24 22 L28 42 L32 14 L36 42 L40 22 L44 32 H56" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="wordmark">pulse<span class="review">review</span></span>
+    </a>
+
+    <div>
+      <div class="sidebar-eyebrow">Foundations</div>
+      <nav class="nav">
+        <a href="#brand"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>Brand</a>
+        <a href="#voice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg>Voice &amp; tone</a>
+        <a href="#color"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22a10 10 0 1 1 0-20c4.4 0 6 4 6 6 0 2-2 2.5-2 5s2 1 2 3-2 6-6 6z"/></svg>Color</a>
+        <a href="#type"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>Type</a>
+        <a href="#spacing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Spacing</a>
+        <a href="#radii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8a5 5 0 0 1 5-5h13"/></svg>Radii</a>
+        <a href="#shadow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M7 21h14V7"/></svg>Elevation</a>
+      </nav>
+    </div>
+
+    <div>
+      <div class="sidebar-eyebrow">Components</div>
+      <nav class="nav">
+        <a href="#buttons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="3"/></svg>Buttons</a>
+        <a href="#inputs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><line x1="7" y1="12" x2="14" y2="12"/></svg>Inputs</a>
+        <a href="#badges"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7 7 .5-5.5 4.7 1.7 7L12 17.5 5.8 21.2l1.7-7L2 9.5 9 9z"/></svg>Badges &amp; chips</a>
+        <a href="#cards"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Cards</a>
+        <a href="#stars"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7 7 .5-5.5 4.7 1.7 7L12 17.5 5.8 21.2l1.7-7L2 9.5 9 9z"/></svg>Stars</a>
+        <a href="#icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Iconography</a>
+        <a href="#motif"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7" opacity=".6"/><circle cx="12" cy="12" r="10" opacity=".3"/></svg>Pulse motif</a>
+      </nav>
+    </div>
+
+    <div class="sidebar-foot">
+      <span class="pulse-dot" aria-hidden="true"></span>
+      <span class="sidebar-foot-text">
+        <strong>Pulse health</strong>
+        <span>v1.0.0 · all systems go</span>
+      </span>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       content
+       ============================================================ -->
+  <main class="content" id="top">
+
+    <!-- hero -->
+    <header class="hero">
+      <div class="eyebrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Design system · v1.0
+      </div>
+      <h1>The system behind <span class="accent">pulsereview</span>.</h1>
+      <p class="lede">Review generation on autopilot — for businesses that want more 5-star reviews without the hustle. This is the brand foundation, the token library, and the kit of parts the product is built from.</p>
+      <div class="hero-meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Updated 2026-05-12</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>One self-contained file</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Geist · Bricolage · JetBrains Mono</span>
+      </div>
+    </header>
+
+    <!-- ============================================================
+         brand
+         ============================================================ -->
+    <section class="panel" id="brand">
+      <div class="section-head">
+        <div>
+          <span class="kicker">01 · Identity</span>
+          <h2 style="margin-top:8px;">Brand &amp; logo</h2>
+          <p>The mark is a heartbeat waveform inside a 16px-radius squircle — confident, tech-forward, with a literal pulse. The wordmark is always lowercase. The brand is the one place pulsereview "shouts."</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Mark, wordmark, inverse</div>
+            <div class="card-sub">Use the mark alone in tight spaces. The wordmark belongs at logo-lockup sizes (≥56px tall).</div>
+          </div>
+        </div>
+
+        <div class="logo-grid">
+          <div class="row" style="gap:32px;">
+            <svg class="logo-mark-large" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="mark">
+              <defs>
+                <linearGradient id="gMark1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#3a5fff"/>
+                  <stop offset="100%" stop-color="#2640ee"/>
+                </linearGradient>
+              </defs>
+              <rect width="64" height="64" rx="16" fill="url(#gMark1)"/>
+              <path d="M8 32 H20 L24 22 L28 42 L32 14 L36 42 L40 22 L44 32 H56" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg viewBox="0 0 290 64" width="232" height="56" xmlns="http://www.w3.org/2000/svg" aria-label="pulsereview">
+              <defs>
+                <linearGradient id="gWord1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#3a5fff"/>
+                  <stop offset="100%" stop-color="#2640ee"/>
+                </linearGradient>
+              </defs>
+              <rect width="64" height="64" rx="16" fill="url(#gWord1)"/>
+              <path d="M8 32 H20 L24 22 L28 42 L32 14 L36 42 L40 22 L44 32 H56" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="80" y="44" font-family="Bricolage Grotesque, Geist, sans-serif" font-weight="700" font-size="32" letter-spacing="-1" fill="#161a26">pulse<tspan fill="#3a5fff">review</tspan></text>
+            </svg>
+          </div>
+          <div class="logo-rules">
+            <strong>Rules</strong>
+            <ul>
+              <li>The brand name is always one word, all lowercase: <code class="mono">pulsereview</code>.</li>
+              <li>The mark uses a 16px squircle (<code class="mono">rx=16</code> on a 64-square) — matches <code class="mono">--radius-lg</code>.</li>
+              <li>Never recolor the mark gradient. Inverse uses solid white on <code class="mono">--pulse-600</code>.</li>
+              <li>Minimum clear-space equals the height of the heartbeat path.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="logo-inverse" style="margin-top:24px;">
+          <svg viewBox="0 0 290 64" width="240" height="52" xmlns="http://www.w3.org/2000/svg" aria-label="pulsereview inverse">
+            <rect width="64" height="64" rx="16" fill="#ffffff"/>
+            <path d="M8 32 H20 L24 22 L28 42 L32 14 L36 42 L40 22 L44 32 H56" fill="none" stroke="#3a5fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="80" y="44" font-family="Bricolage Grotesque, Geist, sans-serif" font-weight="700" font-size="32" letter-spacing="-1" fill="#ffffff">pulse<tspan fill="#ffffff" opacity="0.7">review</tspan></text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         voice
+         ============================================================ -->
+    <section class="panel" id="voice">
+      <div class="section-head">
+        <div>
+          <span class="kicker">02 · Words</span>
+          <h2 style="margin-top:8px;">Voice &amp; tone</h2>
+          <p>Confidently helpful, a little playful, never corporate. Talk like a smart friend who happens to run a software company — the kind who'll explain the boring stuff plainly and crack a small joke when it earns one.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Sample copy</div>
+            <div class="card-sub">Same surface, two voices. Read each row out loud and the right answer becomes obvious.</div>
+          </div>
+        </div>
+        <table class="voice-table">
+          <thead>
+            <tr><th>Surface</th><th>✅ Good</th><th>❌ Bad</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="label-col">Hero</td><td class="ok">More 5-star reviews, less awkward asking.</td><td class="no">Streamline your reputation management workflow.</td></tr>
+            <tr><td class="label-col">Empty inbox</td><td class="ok">No new reviews yet — but your next request just went out 👋</td><td class="no">0 results</td></tr>
+            <tr><td class="label-col">Onboarding</td><td class="ok">Let's grab your Google Business Profile. Takes ~30 seconds.</td><td class="no">Authenticate with Google Business API to enable syndication.</td></tr>
+            <tr><td class="label-col">Error</td><td class="ok">That email bounced. Want to try another?</td><td class="no">An error occurred: 5xx.</td></tr>
+            <tr><td class="label-col">Success toast</td><td class="ok">🎉 Maria left you 5 stars on Google</td><td class="no">Operation completed successfully.</td></tr>
+            <tr><td class="label-col">CTA</td><td class="ok">Start free for 14 days</td><td class="no">Click here to begin your free trial today</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Rules of thumb</div>
+            <div class="card-sub">Six guardrails. If your copy passes all six, ship it.</div>
+          </div>
+        </div>
+        <div class="grid" style="grid-template-columns:repeat(2,1fr); gap:16px;">
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <div><strong>You-first.</strong> Always second-person. "You'll get your first review within 24 hours."</div>
+          </div>
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <div><strong>We, the team.</strong> When pulsereview speaks, it's "we" — not "pulsereview."</div>
+          </div>
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <div><strong>Sentence case</strong> for everything: titles, buttons, menu items, headings.</div>
+          </div>
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <div><strong>Brevity beats cleverness.</strong> A pun is fine; a paragraph of puns is not.</div>
+          </div>
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <div><strong>Names, not nouns.</strong> "Maria from Sunshine Dental" beats "a verified customer."</div>
+          </div>
+          <div class="callout">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+            <div><strong>Numbers when they help.</strong> "4.9★ across 213 reviews" — concrete beats filler.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         color
+         ============================================================ -->
+    <section class="panel" id="color">
+      <div class="section-head">
+        <div>
+          <span class="kicker">03 · Color</span>
+          <h2 style="margin-top:8px;">Color system</h2>
+          <p>Pulse Blue is the brand anchor — electric, optimistic, slightly indigo. Coral is the playful counterweight. Mint, amber, and rose carry status. Slate neutrals lean cool to harmonize with the blue.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Pulse Blue · primary</div>
+            <div class="card-sub">500 is the canonical brand. 600 for hover, 700 for pressed.</div>
+          </div>
+          <div class="mono muted" style="font-size:var(--text-xs);">--pulse-50 → --pulse-950</div>
+        </div>
+        <div class="ramp" style="grid-template-columns:repeat(11,1fr);">
+          <div class="swatch dark" style="background:#eef3ff; color:#1d2a7f"><span class="name">50</span><span class="hex">#eef3ff</span></div>
+          <div class="swatch dark" style="background:#dbe5ff; color:#1d2a7f"><span class="name">100</span><span class="hex">#dbe5ff</span></div>
+          <div class="swatch dark" style="background:#bfd0ff; color:#1d2a7f"><span class="name">200</span><span class="hex">#bfd0ff</span></div>
+          <div class="swatch dark" style="background:#94b0ff; color:#1d2a7f"><span class="name">300</span><span class="hex">#94b0ff</span></div>
+          <div class="swatch dark" style="background:#6286ff"><span class="name">400</span><span class="hex">#6286ff</span></div>
+          <div class="swatch dark" style="background:#3a5fff; outline:2px solid var(--fg-1); outline-offset:2px"><span class="name">500★</span><span class="hex">#3a5fff</span></div>
+          <div class="swatch dark" style="background:#2640ee"><span class="name">600</span><span class="hex">#2640ee</span></div>
+          <div class="swatch dark" style="background:#1f30c8"><span class="name">700</span><span class="hex">#1f30c8</span></div>
+          <div class="swatch dark" style="background:#1d2ba1"><span class="name">800</span><span class="hex">#1d2ba1</span></div>
+          <div class="swatch dark" style="background:#1d2a7f"><span class="name">900</span><span class="hex">#1d2a7f</span></div>
+          <div class="swatch dark" style="background:#131a4a"><span class="name">950</span><span class="hex">#131a4a</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Coral &amp; mint · accents</div>
+            <div class="card-sub">Coral is the playful warmth. Mint is success and 5-star joy. Neither carries system meaning beyond what's marked.</div>
+          </div>
+        </div>
+        <div class="col" style="gap:16px;">
+          <div>
+            <div style="font-size:var(--text-xs); color:var(--fg-3); font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Coral · accent / playful</div>
+            <div class="ramp" style="grid-template-columns:repeat(9,1fr);">
+              <div class="swatch dark" style="background:#fff1ee; color:#7d2412"><span class="name">50</span></div>
+              <div class="swatch dark" style="background:#ffe0d8; color:#7d2412"><span class="name">100</span></div>
+              <div class="swatch dark" style="background:#ffc1b1; color:#7d2412"><span class="name">200</span></div>
+              <div class="swatch dark" style="background:#ff9a80"><span class="name">300</span></div>
+              <div class="swatch dark" style="background:#ff7a5b; outline:2px solid var(--fg-1); outline-offset:2px"><span class="name">400★</span><span class="hex">#ff7a5b</span></div>
+              <div class="swatch dark" style="background:#ff5a3a"><span class="name">500</span></div>
+              <div class="swatch dark" style="background:#ec3d1e"><span class="name">600</span></div>
+              <div class="swatch dark" style="background:#c42d12"><span class="name">700</span></div>
+              <div class="swatch dark" style="background:#7d2412"><span class="name">900</span></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:var(--text-xs); color:var(--fg-3); font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Mint · success / 5★</div>
+            <div class="ramp" style="grid-template-columns:repeat(9,1fr);">
+              <div class="swatch dark" style="background:#ecfdf5; color:#065f46"><span class="name">50</span></div>
+              <div class="swatch dark" style="background:#d1fae5; color:#065f46"><span class="name">100</span></div>
+              <div class="swatch dark" style="background:#a7f3d0; color:#065f46"><span class="name">200</span></div>
+              <div class="swatch dark" style="background:#6ee7b7; color:#065f46"><span class="name">300</span></div>
+              <div class="swatch dark" style="background:#34d399"><span class="name">400</span></div>
+              <div class="swatch dark" style="background:#10b981; outline:2px solid var(--fg-1); outline-offset:2px"><span class="name">500★</span><span class="hex">#10b981</span></div>
+              <div class="swatch dark" style="background:#059669"><span class="name">600</span></div>
+              <div class="swatch dark" style="background:#047857"><span class="name">700</span></div>
+              <div class="swatch dark" style="background:#064e3b"><span class="name">900</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Semantic states</div>
+            <div class="card-sub">Each state has a tint, a text color, and a border. Use them together so the meaning carries with the color.</div>
+          </div>
+        </div>
+        <div class="grid" style="grid-template-columns:repeat(2,1fr); gap:12px;">
+          <div style="background:var(--success-tint); border:1px solid var(--mint-200); padding:14px; border-radius:var(--radius-md); display:flex; align-items:center; gap:10px;">
+            <span style="width:10px; height:10px; border-radius:99px; background:var(--success);"></span>
+            <div><div style="font-weight:600; color:var(--success-fg)">Success</div><div style="font-size:12px; color:var(--mint-700);">New 5-star review</div></div>
+          </div>
+          <div style="background:var(--warning-tint); border:1px solid #fde68a; padding:14px; border-radius:var(--radius-md); display:flex; align-items:center; gap:10px;">
+            <span style="width:10px; height:10px; border-radius:99px; background:var(--warning);"></span>
+            <div><div style="font-weight:600; color:var(--warning-fg)">Warning</div><div style="font-size:12px; color:var(--amber-700);">3 pending requests</div></div>
+          </div>
+          <div style="background:var(--danger-tint); border:1px solid #fecdd3; padding:14px; border-radius:var(--radius-md); display:flex; align-items:center; gap:10px;">
+            <span style="width:10px; height:10px; border-radius:99px; background:var(--danger);"></span>
+            <div><div style="font-weight:600; color:var(--danger-fg)">Danger</div><div style="font-size:12px; color:var(--rose-700);">2-star review needs reply</div></div>
+          </div>
+          <div style="background:var(--info-tint); border:1px solid var(--pulse-200); padding:14px; border-radius:var(--radius-md); display:flex; align-items:center; gap:10px;">
+            <span style="width:10px; height:10px; border-radius:99px; background:var(--info);"></span>
+            <div><div style="font-weight:600; color:var(--pulse-700)">Info</div><div style="font-size:12px; color:var(--pulse-700);">Connect Google in setup</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Slate · neutrals</div>
+            <div class="card-sub">Cool slate ramp — harmonizes with Pulse Blue. No pure black; 900 is our deepest ink.</div>
+          </div>
+        </div>
+        <div class="ramp" style="grid-template-columns:repeat(13,1fr); gap:5px;">
+          <div class="swatch light" style="background:#ffffff; border:1px solid var(--border)"><span class="name">0</span></div>
+          <div class="swatch light" style="background:#fafbfd"><span class="name">25</span></div>
+          <div class="swatch light" style="background:#f4f6fb"><span class="name">50</span></div>
+          <div class="swatch light" style="background:#ecf0f7"><span class="name">100</span></div>
+          <div class="swatch light" style="background:#dde3ee"><span class="name">200</span></div>
+          <div class="swatch light" style="background:#c3cbdb"><span class="name">300</span></div>
+          <div class="swatch light" style="background:#98a2b8"><span class="name">400</span></div>
+          <div class="swatch dark"  style="background:#6a7388"><span class="name">500</span></div>
+          <div class="swatch dark"  style="background:#4b5468"><span class="name">600</span></div>
+          <div class="swatch dark"  style="background:#353c4d"><span class="name">700</span></div>
+          <div class="swatch dark"  style="background:#232838"><span class="name">800</span></div>
+          <div class="swatch dark"  style="background:#161a26"><span class="name">900</span></div>
+          <div class="swatch dark"  style="background:#0c0f18"><span class="name">950</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         type
+         ============================================================ -->
+    <section class="panel" id="type">
+      <div class="section-head">
+        <div>
+          <span class="kicker">04 · Type</span>
+          <h2 style="margin-top:8px;">Typography</h2>
+          <p>Three faces, one job each. Geist runs the product. Bricolage Grotesque carries the marketing voice. JetBrains Mono handles IDs, metrics, and the occasional eyebrow tag.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Display · Bricolage Grotesque</div>
+            <div class="card-sub">Used in hero headlines and marketing moments. Variable, expressive — the <code class="mono">g</code> and <code class="mono">e</code> carry warmth. Never for UI body text.</div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div style="font-family:var(--font-display); font-weight:700; font-size:56px; letter-spacing:-0.02em; line-height:1.05; color:var(--fg-1);">More 5-star reviews,<br>less awkward asking.</div>
+          <div style="font-family:var(--font-display); font-weight:500; font-size:30px; line-height:1.2; color:var(--fg-2); margin-top:12px;">Trusted by 4,200 local businesses.</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="card-head">
+          <div>
+            <div class="card-title">UI · Geist</div>
+            <div class="card-sub">Geometric, neutral, modern. The product runs on this. 15px body — modestly larger because welcoming = readable.</div>
+          </div>
+        </div>
+        <div class="specimen" style="background:#fff;">
+          <div class="specimen-row"><span class="meta">h1 · 38/600</span><span class="sample" style="font-size:38px; font-weight:600; line-height:1.15; letter-spacing:-0.02em;">H1 — Dashboard</span></div>
+          <div class="specimen-row"><span class="meta">h2 · 30/600</span><span class="sample" style="font-size:30px; font-weight:600; line-height:1.3; letter-spacing:-0.01em;">H2 — This week</span></div>
+          <div class="specimen-row"><span class="meta">h3 · 24/600</span><span class="sample" style="font-size:24px; font-weight:600;">H3 — Recent reviews</span></div>
+          <div class="specimen-row"><span class="meta">h4 · 20/600</span><span class="sample" style="font-size:20px; font-weight:600;">H4 — Section header</span></div>
+          <div class="specimen-row"><span class="meta">lg · 17/400</span><span class="sample" style="font-size:17px; line-height:1.5;">Body large — marketing intros and primary descriptions.</span></div>
+          <div class="specimen-row"><span class="meta">md · 15/400</span><span class="sample" style="font-size:15px; line-height:1.5; color:var(--fg-2);">Body — the default reading size for the product, set at 15px to feel welcoming.</span></div>
+          <div class="specimen-row"><span class="meta">sm · 13/400</span><span class="sample" style="font-size:13px; color:var(--fg-3);">Body small — meta info, table cells, captions.</span></div>
+          <div class="specimen-row"><span class="meta">eyebrow · 11/600</span><span class="sample" style="font-size:11px; color:var(--brand); font-weight:600; letter-spacing:0.08em; text-transform:uppercase;">Eyebrow · uppercase tag</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Mono · JetBrains Mono</div>
+            <div class="card-sub">Review IDs, metrics, code snippets, and ratings in tight contexts.</div>
+          </div>
+        </div>
+        <div class="specimen">
+          <div style="font-family:var(--font-mono); font-size:24px; font-weight:600;">4.92 ★ · 213 reviews</div>
+          <div style="font-family:var(--font-mono); font-size:15px; color:var(--fg-2); margin-top:10px;">rev_3FxK8qPaL7m · sent 2026-05-11</div>
+          <pre style="margin:14px 0 0; background:var(--bg-sunken); border:1px solid var(--border-subtle); padding:12px 14px; border-radius:var(--radius-sm); font-family:var(--font-mono); font-size:13px; color:var(--fg-1); white-space:pre-wrap;">POST /api/v1/requests
+  { "name": "Maria", "channel": "sms" }</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         spacing
+         ============================================================ -->
+    <section class="panel" id="spacing">
+      <div class="section-head">
+        <div>
+          <span class="kicker">05 · Space</span>
+          <h2 style="margin-top:8px;">Spacing scale</h2>
+          <p>4px base, 8px rhythm. <code class="mono">--space-1</code> through <code class="mono">--space-13</code> — use the tokens, not raw pixels.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="space-row">
+          <div class="unit"><div class="bar" style="width:4px;height:4px;"></div><span class="lbl">1·4</span></div>
+          <div class="unit"><div class="bar" style="width:8px;height:8px;"></div><span class="lbl">2·8</span></div>
+          <div class="unit"><div class="bar" style="width:12px;height:12px;"></div><span class="lbl">3·12</span></div>
+          <div class="unit"><div class="bar" style="width:16px;height:16px;"></div><span class="lbl">4·16</span></div>
+          <div class="unit"><div class="bar" style="width:20px;height:20px;"></div><span class="lbl">5·20</span></div>
+          <div class="unit"><div class="bar" style="width:24px;height:24px;"></div><span class="lbl">6·24</span></div>
+          <div class="unit"><div class="bar" style="width:32px;height:32px;"></div><span class="lbl">7·32</span></div>
+          <div class="unit"><div class="bar" style="width:40px;height:40px;"></div><span class="lbl">8·40</span></div>
+          <div class="unit"><div class="bar" style="width:48px;height:48px;"></div><span class="lbl">9·48</span></div>
+          <div class="unit"><div class="bar" style="width:64px;height:64px;"></div><span class="lbl">10·64</span></div>
+        </div>
+        <p class="note">Section padding in marketing sits at <code class="mono">--space-12</code> (96px) top/bottom; cards use <code class="mono">--space-6</code> (24px) padding.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         radii
+         ============================================================ -->
+    <section class="panel" id="radii">
+      <div class="section-head">
+        <div>
+          <span class="kicker">06 · Curves</span>
+          <h2 style="margin-top:8px;">Radii</h2>
+          <p>Cards land at <code class="mono">--radius-lg</code> (14). Buttons and inputs sit at <code class="mono">--radius-md</code> (10). Pills are reserved for filter chips, tags, and badges.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="radii-row">
+          <div class="unit"><div class="demo" style="border-radius:4px;"></div><span class="lbl">xs · 4</span></div>
+          <div class="unit"><div class="demo" style="border-radius:6px;"></div><span class="lbl">sm · 6</span></div>
+          <div class="unit"><div class="demo" style="border-radius:10px;"></div><span class="lbl">md · 10</span></div>
+          <div class="unit"><div class="demo" style="border-radius:14px;"></div><span class="lbl">lg · 14</span></div>
+          <div class="unit"><div class="demo" style="border-radius:20px;"></div><span class="lbl">xl · 20</span></div>
+          <div class="unit"><div class="demo" style="border-radius:28px;"></div><span class="lbl">2xl · 28</span></div>
+          <div class="unit"><div class="demo" style="border-radius:999px;"></div><span class="lbl">full</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         shadows / elevation
+         ============================================================ -->
+    <section class="panel" id="shadow">
+      <div class="section-head">
+        <div>
+          <span class="kicker">07 · Depth</span>
+          <h2 style="margin-top:8px;">Elevation</h2>
+          <p>Five-step shadow scale. All shadows carry a slight blue cast — never pure-black, which looks harsh against cool neutrals.</p>
+        </div>
+      </div>
+
+      <div class="card" style="background:var(--bg-app);">
+        <div class="shadows-row">
+          <div class="unit"><div class="demo" style="box-shadow:var(--shadow-xs);"></div><span class="lbl mono muted" style="font-size:var(--text-xs);">xs</span></div>
+          <div class="unit"><div class="demo" style="box-shadow:var(--shadow-sm);"></div><span class="lbl mono muted" style="font-size:var(--text-xs);">sm</span></div>
+          <div class="unit"><div class="demo" style="box-shadow:var(--shadow-md);"></div><span class="lbl mono muted" style="font-size:var(--text-xs);">md</span></div>
+          <div class="unit"><div class="demo" style="box-shadow:var(--shadow-lg);"></div><span class="lbl mono muted" style="font-size:var(--text-xs);">lg</span></div>
+          <div class="unit"><div class="demo" style="box-shadow:var(--shadow-xl);"></div><span class="lbl mono muted" style="font-size:var(--text-xs);">xl</span></div>
+        </div>
+        <p class="note">Focus ring (<code class="mono">--ring-focus</code>) is 3px brand-blue at 28% opacity — always present on keyboard focus.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         buttons
+         ============================================================ -->
+    <section class="panel" id="buttons">
+      <div class="section-head">
+        <div>
+          <span class="kicker">08 · Action</span>
+          <h2 style="margin-top:8px;">Buttons</h2>
+          <p>Hover darkens one step. No press scaling — focus ring expands instead (3px brand-blue at 28%). Buttons are 1–3 words: action verbs, sentence case.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-title">Variants</div></div>
+        <div class="row" style="gap:10px;">
+          <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Send request</button>
+          <button class="btn btn-secondary">Cancel</button>
+          <button class="btn btn-ghost">Skip for now</button>
+          <button class="btn btn-danger">Delete review</button>
+        </div>
+        <div class="card-head" style="margin-top:24px;"><div class="card-title">Sizes</div></div>
+        <div class="row" style="gap:10px;">
+          <button class="btn btn-primary btn-sm">Reply</button>
+          <button class="btn btn-secondary btn-sm">…</button>
+          <button class="btn btn-primary">Send request</button>
+          <button class="btn btn-primary btn-lg">Start free trial →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         inputs
+         ============================================================ -->
+    <section class="panel" id="inputs">
+      <div class="section-head">
+        <div>
+          <span class="kicker">09 · Capture</span>
+          <h2 style="margin-top:8px;">Inputs</h2>
+          <p>Labels sit above. Hint text below. Focus ring carries the brand. Search has a leading icon at 12px from the edge.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="grid" style="grid-template-columns:1fr 1fr; gap:16px;">
+          <div class="field">
+            <label>Customer name</label>
+            <input type="text" value="Maria Alvarez">
+          </div>
+          <div class="field">
+            <label>Channel</label>
+            <select>
+              <option>SMS</option>
+              <option>Email</option>
+              <option>WhatsApp</option>
+            </select>
+          </div>
+          <div class="field" style="grid-column:1/-1;">
+            <label>Message</label>
+            <textarea rows="3">Hi Maria — thanks for visiting Sunshine Dental! Mind sharing a quick review?</textarea>
+            <span class="hint">Tip: a real first name lifts response rate ~24%.</span>
+          </div>
+          <div class="field" style="grid-column:1/-1;">
+            <label>Search reviews</label>
+            <div class="search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <input type="text" placeholder="Search by name, rating, or platform…">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         badges
+         ============================================================ -->
+    <section class="panel" id="badges">
+      <div class="section-head">
+        <div>
+          <span class="kicker">10 · Status</span>
+          <h2 style="margin-top:8px;">Badges &amp; chips</h2>
+          <p>Pills carry status — tint + text + 1px border so the meaning survives without color. Filter chips are filled when active.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-title">Status badges</div></div>
+        <div class="row" style="gap:8px;">
+          <span class="badge b-mint"><span class="dot"></span>New 5★</span>
+          <span class="badge b-amber"><span class="dot"></span>Pending</span>
+          <span class="badge b-rose"><span class="dot"></span>Needs reply</span>
+          <span class="badge b-blue"><span class="dot"></span>Sent</span>
+          <span class="badge b-slate"><span class="dot"></span>Draft</span>
+        </div>
+
+        <div class="card-head" style="margin-top:24px;"><div class="card-title">Filter chips</div></div>
+        <div class="row" style="gap:6px;">
+          <button class="chip on">All reviews</button>
+          <button class="chip">Google</button>
+          <button class="chip">Yelp</button>
+          <button class="chip">Facebook</button>
+          <button class="chip">+ filter</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         cards
+         ============================================================ -->
+    <section class="panel" id="cards">
+      <div class="section-head">
+        <div>
+          <span class="kicker">11 · Surfaces</span>
+          <h2 style="margin-top:8px;">Cards</h2>
+          <p>Default surface: white, 14px radius, 1px slate-200 border, subtle two-layer shadow. Stat cards lead with the number; review cards lead with the person.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="grid" style="grid-template-columns:1fr 1.4fr; gap:14px;">
+          <div class="example-card">
+            <div class="stat-label">This week</div>
+            <div class="stat-num" style="margin-top:8px;">47</div>
+            <div style="margin-top:8px; display:flex; gap:10px; align-items:center;">
+              <span class="trend">▲ 18%</span>
+              <span style="font-size:var(--text-xs); color:var(--fg-3);">new reviews</span>
+            </div>
+          </div>
+          <div class="example-card">
+            <div style="display:flex; gap:12px; align-items:flex-start;">
+              <div class="avatar">M</div>
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <strong style="font-size:14px;">Maria Alvarez</strong>
+                  <span style="font-size:11px; color:var(--fg-3); font-family:var(--font-mono);">2h ago · Google</span>
+                </div>
+                <div class="stars-inline" style="margin-top:2px;">★★★★★</div>
+                <p style="margin:6px 0 0; font-size:13px; color:var(--fg-2); line-height:1.5;">"Dr. Chen was so kind with my daughter. Painless visit, beautiful office."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1fr; gap:14px; margin-top:14px;">
+          <div class="example-card" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+            <div style="display:flex; align-items:center; gap:16px;">
+              <div style="width:44px; height:44px; border-radius:14px; background:var(--brand-tint); color:var(--brand); display:flex; align-items:center; justify-content:center;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.5 5h13L22 12v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/></svg>
+              </div>
+              <div>
+                <strong style="font-size:14px;">3 reviews waiting</strong>
+                <div style="font-size:13px; color:var(--fg-3); margin-top:2px;">All sent to Google in the last 24 hours.</div>
+              </div>
+            </div>
+            <button class="btn btn-secondary btn-sm">Open inbox</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         stars
+         ============================================================ -->
+    <section class="panel" id="stars">
+      <div class="section-head">
+        <div>
+          <span class="kicker">12 · Ratings</span>
+          <h2 style="margin-top:8px;">Stars</h2>
+          <p>Filled amber for the rating value, outlined slate-300 for empty. Rating components are always paired with the numeric score and review count.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="col" style="gap:16px;">
+          <div class="rating" aria-label="5 stars">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" class="filled"><path d="M11.5 2.6l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3 9l6-.9z"/></svg>
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" class="filled"><path d="M11.5 2.6l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3 9l6-.9z"/></svg>
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" class="filled"><path d="M11.5 2.6l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3 9l6-.9z"/></svg>
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" class="filled"><path d="M11.5 2.6l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3 9l6-.9z"/></svg>
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" class="filled"><path d="M11.5 2.6l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3 9l6-.9z"/></svg>
+            <span style="margin-left:8px; font-weight:600; align-self:center;">5.0</span>
+          </div>
+          <div class="rating" aria-label="3 stars">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" class="filled"><path d="M11.5 2.6l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3 9l6-.9z"/></svg>
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" class="filled"><path d="M11.5 2.6l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3 9l6-.9z"/></svg>
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" class="filled"><path d="M11.5 2.6l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3 9l6-.9z"/></svg>
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" class="empty"><path d="M11.5 2.6l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3 9l6-.9z"/></svg>
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" class="empty"><path d="M11.5 2.6l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3 9l6-.9z"/></svg>
+            <span style="margin-left:8px; color:var(--fg-3); align-self:center;">3.0 · needs reply</span>
+          </div>
+          <div style="display:flex; align-items:baseline; gap:12px;">
+            <span style="font-family:var(--font-display); font-size:42px; font-weight:700; letter-spacing:-0.02em;">4.92</span>
+            <span style="color:var(--amber-400); font-size:20px;">★★★★★</span>
+            <span style="color:var(--fg-3); font-size:14px;">213 reviews</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         iconography
+         ============================================================ -->
+    <section class="panel" id="icons">
+      <div class="section-head">
+        <div>
+          <span class="kicker">13 · Symbols</span>
+          <h2 style="margin-top:8px;">Iconography</h2>
+          <p><a href="https://lucide.dev/" target="_blank" rel="noopener">Lucide</a> — 24×24, 2px stroke, rounded caps. Stroke icons only. Filled is reserved for stars and the logo mark.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="icon-grid">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="star"><path d="M11.5 2.6l2.7 5.5 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3 9l6-.9z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="message"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="inbox"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.5 5h13L22 12v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="send"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="chart"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="bell"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <p class="note">Size scale: 16, 20, 24. Default is 20 for UI, 24 for marketing. Icons inherit <code class="mono">currentColor</code>.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         pulse motif
+         ============================================================ -->
+    <section class="panel" id="motif">
+      <div class="section-head">
+        <div>
+          <span class="kicker">14 · Brand pattern</span>
+          <h2 style="margin-top:8px;">Pulse motif &amp; illustration</h2>
+          <p>Concentric rings, a heartbeat line, and a coral spark — the brand's only repeating pattern. Lives in empty states, the marketing hero, and the favicon.</p>
+        </div>
+      </div>
+
+      <div class="card motif-card">
+        <svg class="motif" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" aria-label="pulse motif">
+          <defs>
+            <linearGradient id="motifBg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#eef3ff"/>
+              <stop offset="100%" stop-color="#dbe5ff"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="200" fill="url(#motifBg)"/>
+          <g transform="translate(200 100)" fill="none" stroke="#3a5fff" stroke-opacity="0.18">
+            <circle r="20" stroke-width="1.5"/>
+            <circle r="40" stroke-width="1.5"/>
+            <circle r="60" stroke-width="1.5"/>
+            <circle r="84" stroke-width="1.5"/>
+          </g>
+          <path d="M0 100 H120 L140 70 L160 130 L180 40 L200 160 L220 40 L240 130 L260 70 L280 100 H400" fill="none" stroke="#3a5fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="200" cy="34" r="5" fill="#ff7a5b"/>
+        </svg>
+        <p class="muted" style="font-size:var(--text-sm); text-align:center;">The pulse motif — concentric rings + heartbeat line + coral spark.</p>
+      </div>
+
+      <div class="card illustration-card" style="margin-top:16px;">
+        <svg viewBox="0 0 320 240" width="320" height="240" xmlns="http://www.w3.org/2000/svg" aria-label="review bubble illustration">
+          <defs>
+            <linearGradient id="illGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#dbe5ff"/>
+              <stop offset="100%" stop-color="#eef3ff"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="240" fill="#fafbfd"/>
+          <ellipse cx="160" cy="200" rx="120" ry="14" fill="#dbe5ff" opacity="0.6"/>
+          <g transform="translate(60 30)">
+            <path d="M20 0 H180 a20 20 0 0 1 20 20 V100 a20 20 0 0 1 -20 20 H100 L70 150 L80 120 H20 a20 20 0 0 1 -20 -20 V20 a20 20 0 0 1 20 -20 z" fill="url(#illGrad)" stroke="#3a5fff" stroke-width="2"/>
+            <g transform="translate(28 40)" fill="#fbbf24">
+              <path d="M0 8 l3-6 3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4z"/>
+              <g transform="translate(30 0)"><path d="M0 8 l3-6 3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4z"/></g>
+              <g transform="translate(60 0)"><path d="M0 8 l3-6 3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4z"/></g>
+              <g transform="translate(90 0)"><path d="M0 8 l3-6 3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4z"/></g>
+              <g transform="translate(120 0)"><path d="M0 8 l3-6 3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4z"/></g>
+            </g>
+            <rect x="28" y="68" width="144" height="6" rx="3" fill="#bfd0ff"/>
+            <rect x="28" y="82" width="110" height="6" rx="3" fill="#bfd0ff"/>
+          </g>
+          <g fill="#ff7a5b">
+            <circle cx="40" cy="60" r="4"/>
+            <circle cx="280" cy="90" r="5"/>
+            <circle cx="260" cy="30" r="3"/>
+          </g>
+          <path d="M20 195 H100 L120 175 L140 215 L160 165 L180 215 L200 175 L220 195 H300" fill="none" stroke="#3a5fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+        </svg>
+        <p class="muted" style="font-size:var(--text-sm); text-align:center;">Review bubble illustration — used in empty states and onboarding.</p>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer style="margin-top:var(--space-10); padding-top:var(--space-7); border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:var(--space-5); flex-wrap:wrap; color:var(--fg-3); font-size:var(--text-sm);">
+      <div style="display:flex; align-items:center; gap:var(--space-3);">
+        <svg width="22" height="22" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="footMark" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#3a5fff"/>
+              <stop offset="100%" stop-color="#2640ee"/>
+            </linearGradient>
+          </defs>
+          <rect width="64" height="64" rx="16" fill="url(#footMark)"/>
+          <path d="M8 32 H20 L24 22 L28 42 L32 14 L36 42 L40 22 L44 32 H56" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>pulsereview design system · v1.0 · all systems go</span>
+      </div>
+      <span class="mono" style="font-size:var(--text-xs);">made with care · 2026</span>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+// Sidebar nav active-state on scroll.
+(function () {
+  const links = Array.from(document.querySelectorAll('.nav a[href^="#"]'));
+  const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if (!('IntersectionObserver' in window)) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = '#' + entry.target.id;
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin: '-30% 0px -65% 0px', threshold: 0 });
+  sections.forEach(s => obs.observe(s));
+})();
+</script>
+</body>
+</html>
