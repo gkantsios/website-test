@@ -82,7 +82,7 @@ a:hover { color:var(--brand-hover); }
 img, svg { display:block; max-width:100%; }
 button { font:inherit; }
 
-.container { max-width:1200px; margin:0 auto; padding:0 var(--space-6); }
+.container { max-width:1320px; margin:0 auto; padding:0 var(--space-6); }
 .eyebrow {
   display:inline-flex; align-items:center; gap:var(--space-2);
   font-family:var(--font-mono); font-size:var(--text-xs); font-weight:600;
@@ -174,9 +174,10 @@ button { font:inherit; }
   z-index:0;
 }
 .hero .container { position:relative; z-index:1; }
-.hero-grid { display:grid; grid-template-columns:1.05fr 1fr; gap:var(--space-10); align-items:center; }
+.hero-grid { display:grid; grid-template-columns:1.4fr 1fr; gap:var(--space-10); align-items:center; }
 .hero h1 {
-  font-family:var(--font-display); font-weight:700; font-size:var(--text-6xl);
+  font-family:var(--font-display); font-weight:700;
+  font-size:clamp(var(--text-5xl), 4.5vw + 0.25rem, var(--text-6xl));
   letter-spacing:-0.02em; line-height:1.02; color:var(--fg-1);
   margin:var(--space-5) 0 var(--space-5); text-wrap:balance;
 }
@@ -450,6 +451,62 @@ section.block { padding:var(--space-12) 0; }
 @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.55; } }
 @media (max-width: 760px) { .footer-top { grid-template-columns:1fr 1fr; } }
 @media (max-width: 480px) { .footer-top { grid-template-columns:1fr; } }
+
+/* contact form (lives inside the dark gradient .cta) */
+.contact-form { max-width:620px; margin:var(--space-7) auto 0; text-align:left; }
+.botcheck { position:absolute; left:-10000px; width:1px; height:1px; opacity:0; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4); }
+.form-grid .field-full { grid-column:1 / -1; }
+.contact-form .field { display:flex; flex-direction:column; gap:6px; }
+.contact-form .field label { font-size:var(--text-sm); font-weight:500; color:rgba(255,255,255,0.85); }
+.contact-form .field input,
+.contact-form .field select,
+.contact-form .field textarea {
+  font-family:var(--font-sans); font-size:var(--text-md);
+  padding:11px 14px;
+  border:1px solid rgba(255,255,255,0.22);
+  border-radius:var(--radius-md);
+  background:rgba(255,255,255,0.08); color:#fff;
+  transition:border-color var(--duration-fast) var(--ease-out),
+             background var(--duration-fast) var(--ease-out),
+             box-shadow var(--duration-fast) var(--ease-out);
+}
+.contact-form .field input::placeholder,
+.contact-form .field textarea::placeholder { color:rgba(255,255,255,0.5); }
+.contact-form .field input:focus,
+.contact-form .field select:focus,
+.contact-form .field textarea:focus {
+  outline:none; border-color:rgba(255,255,255,0.75);
+  background:rgba(255,255,255,0.14);
+  box-shadow:0 0 0 3px rgba(255,255,255,0.18);
+}
+.contact-form .field select {
+  appearance:none; -webkit-appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat:no-repeat; background-position:right 14px center; background-size:14px;
+  padding-right:36px;
+}
+.contact-form .field select option { color:var(--fg-1); background:var(--bg-surface); }
+.contact-form .field textarea { resize:vertical; min-height:108px; font-family:var(--font-sans); }
+.form-submit { width:100%; justify-content:center; margin-top:var(--space-5); }
+.form-submit:disabled { opacity:0.6; cursor:wait; }
+.form-error {
+  margin-top:var(--space-4); padding:10px 14px;
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3);
+  border-radius:var(--radius-md); color:#fff; font-size:var(--text-sm); text-align:left;
+}
+.form-success {
+  max-width:520px; margin:var(--space-7) auto 0;
+  padding:var(--space-7);
+  background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.22);
+  border-radius:var(--radius-lg); text-align:center;
+}
+.form-success svg { width:48px; height:48px; margin:0 auto var(--space-3); color:#fff; display:block; }
+.form-success h3 { font-family:var(--font-display); font-size:var(--text-2xl); font-weight:600; color:#fff; }
+.form-success p { color:rgba(255,255,255,0.85); font-size:var(--text-md); margin-top:var(--space-2); }
+.cta .micro a { color:#fff; text-decoration:underline; text-decoration-color:rgba(255,255,255,0.45); }
+.cta .micro a:hover { text-decoration-color:#fff; }
+@media (max-width: 580px) { .form-grid { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -510,7 +567,7 @@ section.block { padding:var(--space-12) 0; }
       <div class="hero-grid">
         <div>
           <span class="eyebrow"><span class="dot"></span>Built for Jackrabbit Class</span>
-          <h1>More 5-star reviews,<br><span class="accent">less awkward asking.</span></h1>
+          <h1>More <span style="white-space:nowrap;">5-star</span> reviews,<br><span class="accent">less awkward asking.</span></h1>
           <p class="lede">We sync with your Jackrabbit class data and send the perfect ask at the perfect moment — <strong>right after a great lesson, or at the end of camp — automatically.</strong> No spreadsheets. No copy-paste. No "hey could you maybe…" speeches at pickup.</p>
           <div class="hero-ctas">
             <a class="btn btn-primary btn-lg" href="#contact">
@@ -814,7 +871,7 @@ section.block { padding:var(--space-12) 0; }
       <div class="section-head">
         <span class="eyebrow"><span class="dot"></span>FAQ</span>
         <h2>The questions every studio owner asks.</h2>
-        <p>Don't see yours? Email us at <a href="mailto:hi@pulsereview.com">hi@pulsereview.com</a> — we reply within a day.</p>
+        <p>Don't see yours? Email us at <a href="mailto:grant@teamhappy.io">grant@teamhappy.io</a> — we reply within a day.</p>
       </div>
 
       <div class="faq" id="faqList">
@@ -855,7 +912,7 @@ section.block { padding:var(--space-12) 0; }
             <span>How do we get started?</span>
             <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
           </button>
-          <div class="faq-a"><div class="faq-a-inner">We're working hands-on with a small group of Jackrabbit studios while we sharpen the product, so onboarding is by conversation rather than self-serve sign-up. Email <a href="mailto:hi@pulsereview.com">hi@pulsereview.com</a> or hit "Get in touch" up top and we'll find time to talk this week.</div></div>
+          <div class="faq-a"><div class="faq-a-inner">We're working hands-on with a small group of Jackrabbit studios while we sharpen the product, so onboarding is by conversation rather than self-serve sign-up. Email <a href="mailto:grant@teamhappy.io">grant@teamhappy.io</a> or hit "Get in touch" up top and we'll find time to talk this week.</div></div>
         </div>
       </div>
     </div>
@@ -869,14 +926,53 @@ section.block { padding:var(--space-12) 0; }
       <div class="cta">
         <h2>Curious if pulsereview<br>is right for your studio?</h2>
         <p>We're working hands-on with a small group of Jackrabbit studios while we sharpen the product. If that sounds like you, drop us a line and we'll set up time to talk.</p>
-        <div class="cta-actions">
-          <a class="btn btn-primary btn-lg" href="mailto:hi@pulsereview.com">
-            Get in touch
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-          <a class="btn btn-secondary btn-lg" href="mailto:hi@pulsereview.com?subject=pulsereview walkthrough">Book a walkthrough</a>
+
+        <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <input type="hidden" name="access_key" value="f2d8f5e6-7f1f-4410-9f89-e1601620dbf0">
+          <input type="hidden" name="subject" value="New pulsereview.io inquiry">
+          <input type="hidden" name="from_name" value="pulsereview.io">
+          <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="form-grid">
+            <div class="field">
+              <label for="cf-name">Your name</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="cf-studio">Studio name</label>
+              <input id="cf-studio" name="studio" type="text" autocomplete="organization" required>
+            </div>
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="cf-locations">Number of locations</label>
+              <select id="cf-locations" name="locations">
+                <option>1</option>
+                <option>2-5</option>
+                <option>6-15</option>
+                <option>16+</option>
+              </select>
+            </div>
+            <div class="field field-full">
+              <label for="cf-message">What are you hoping pulsereview can do for your studio?</label>
+              <textarea id="cf-message" name="message" rows="4" placeholder="A line or two is plenty."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg form-submit">
+            Send message
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+          <p class="form-error" id="formError" role="alert" hidden></p>
+        </form>
+
+        <div class="form-success" id="formSuccess" role="status" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+          <h3>Thanks - we'll be in touch.</h3>
+          <p>We reply to every message within a day at the email you provided.</p>
         </div>
-        <p class="micro">hi@pulsereview.com · we reply within a day · we don't share your data, ever.</p>
+
+        <p class="micro">Or email <a href="mailto:grant@teamhappy.io">grant@teamhappy.io</a> directly - we reply within a day - we don't share your data, ever.</p>
       </div>
     </div>
   </section>
@@ -990,6 +1086,52 @@ section.block { padding:var(--space-12) 0; }
     var item = btn.parentElement;
     var open = item.classList.toggle('open');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+})();
+
+// ============================================================
+// contact form - submit via Web3Forms, stay on page
+// ============================================================
+(function () {
+  var form = document.getElementById('contactForm');
+  if (!form) return;
+  var success = document.getElementById('formSuccess');
+  var error   = document.getElementById('formError');
+  var btn     = form.querySelector('.form-submit');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var bot = form.querySelector('.botcheck');
+    if (bot && bot.checked) return;
+
+    if (error) error.hidden = true;
+    var btnOriginal = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = 'Sending...';
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (json) {
+      if (json && json.success) {
+        form.hidden = true;
+        success.hidden = false;
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        throw new Error((json && json.message) || 'Submission failed');
+      }
+    })
+    .catch(function () {
+      btn.disabled = false;
+      btn.innerHTML = btnOriginal;
+      if (error) {
+        error.textContent = "Hmm, that didn't go through. Try again, or email grant@teamhappy.io directly.";
+        error.hidden = false;
+      }
+    });
   });
 })();
 </script>
